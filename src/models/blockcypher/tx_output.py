@@ -1,8 +1,11 @@
 from typing import Any, Optional
+
+from models.common.tx_output import CommonTxOutput, AbstractCommonTxOutput
+from utils.string import str_to_bytes_len
 from .script_type import ScriptType
 
 
-class TxOutput:
+class TxOutput(AbstractCommonTxOutput):
     '''
     Represents an output created by a transaction. Typically found within an array in a `Tx`.
     '''
@@ -50,3 +53,12 @@ class TxOutput:
     def data_string(self):
         '''An ASCII representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose script_type is null-data and if its data falls into the visible ASCII range.'''
         return self._data_string
+
+    def to_common(self) -> CommonTxOutput:
+        return CommonTxOutput(
+            next_tx_hash=self._spent_by,
+            value=self._value,
+            script_type=self._script_type.to_common(),
+            script_sig_size=str_to_bytes_len(self._script),
+            address=self._addresses[0],
+        )

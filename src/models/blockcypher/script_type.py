@@ -1,3 +1,6 @@
+from models.common.script_type import CommonScriptType, AbstractCommonScriptType
+
+
 _script_type_list = [
     'pay-to-taproot',
     'pay-to-witness-pubkey-hash',
@@ -8,7 +11,7 @@ _script_type_list = [
 ]
 
 
-class ScriptType:
+class ScriptType(AbstractCommonScriptType):
     def __init__(self, script_type: str) -> None:
         self._script_type = script_type if script_type in _script_type_list else 'other'
 
@@ -25,14 +28,19 @@ class ScriptType:
         - `other` = otherwise
         '''
         return self._script_type
-    
-    @property
-    def bool_map(self):
-        map = {t: self._script_type == t for t in _script_type_list}
-        map['other'] = self._script_type == 'other'
-        return map
-    
-    @property
-    def one_hot_encoding(self):
-        one_hot = [1 if truthy else 0 for truthy in self.bool_map.values()]
-        return one_hot
+
+    def _get_flag(self, type: str):
+        return 1 if self._script_type == type else 0
+
+    def to_common(self) -> CommonScriptType:
+        return CommonScriptType(
+            script_type_p2tr_flag=self._get_flag('pay-to-taproot'),
+            script_type_p2wpkh_flag=self._get_flag(
+                'pay-to-witness-pubkey-hash'),
+            script_type_p2wsh_flag=self._get_flag(
+                'pay-to-witness-script-hash'),
+            script_type_p2sh_flag=self._get_flag('pay-to-script-hash'),
+            script_type_p2pkh_flag=self._get_flag('pay-to-pubkey-hash'),
+            script_type_p2pk_flag=self._get_flag('pay-to-pubkey'),
+            script_type_other_flag=self._get_flag('other'),
+        )

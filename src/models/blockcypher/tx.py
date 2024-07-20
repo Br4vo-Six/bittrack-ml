@@ -1,12 +1,14 @@
 from typing import Any, Optional
 from datetime import datetime as dt
 
+from models.common.tx import CommonTx, AbstractCommonTx
+
 from .tx_output import TxOutput
 from .tx_input import TxInput
 from utils.datetime import timestamp_to_datetime
 
 
-class Tx:
+class Tx(AbstractCommonTx):
     '''
     Represents the current state of a particular transaction from either a Block within a Blockchain, 
     or an unconfirmed transaction that has yet to be included in a Block. 
@@ -197,3 +199,16 @@ class Tx:
     def next_outputs(self):
         '''If there are more transaction outputs that couldn't fit into the TXOutput array, this is the BlockCypher URL to query the next set of TXOutputs(within a TX object).'''
         return self._next_outputs
+
+    def to_common(self) -> CommonTx:
+        return CommonTx(
+            tx_hash=self._hash,
+            addresses=self._addresses,
+            fee=self._fees,
+            size=self._size,
+            vsize=self._vsize,
+            inputs=[inp.to_common() for inp in self._inputs],
+            outputs=[outp.to_common() for outp in self._outputs],
+            block_timestamp=self._confirmed,
+            block_height=self._block_height,
+        )
