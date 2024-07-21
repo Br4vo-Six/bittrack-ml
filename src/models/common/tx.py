@@ -18,51 +18,51 @@ class CommonTx:
         block_timestamp: Optional[dt],
         block_height: Optional[int]
     ) -> None:
-        self._tx_hash = tx_hash
-        self._addresses = addresses
-        self._fee = fee
-        self._size = size
-        self._vsize = vsize
-        self._inputs = inputs
-        self._outputs = outputs
-        self._block_timestamp = block_timestamp
-        self._block_height = block_height
+        self.__tx_hash = tx_hash
+        self.__addresses = addresses
+        self.__fee = fee
+        self.__size = size
+        self.__vsize = vsize
+        self.__inputs = inputs
+        self.__outputs = outputs
+        self.__block_timestamp = block_timestamp
+        self.__block_height = block_height
 
     @property
     def tx_hash(self):
-        return self._tx_hash
+        return self.__tx_hash
 
     @property
     def addresses(self):
-        return self._addresses
+        return self.__addresses
 
     @property
     def fee(self):
-        return self._fee
+        return self.__fee
 
     @property
     def size(self):
-        return self._size
+        return self.__size
 
     @property
     def vsize(self):
-        return self._vsize
+        return self.__vsize
 
     @property
     def inputs(self):
-        return self._inputs
+        return self.__inputs
 
     @property
     def outputs(self):
-        return self._outputs
+        return self.__outputs
 
     @property
     def block_timestamp(self):
-        return self._block_timestamp
+        return self.__block_timestamp
 
     @property
     def block_height(self):
-        return self._block_height
+        return self.__block_height
 
 
 class AbstractCommonTx(ABC):

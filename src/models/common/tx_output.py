@@ -13,31 +13,31 @@ class CommonTxOutput:
         script_sig_size: int,
         address: str,
     ) -> None:
-        self._next_tx_hash = next_tx_hash
-        self._value = value
-        self._script_type = script_type
-        self._script_sig_size = script_sig_size
-        self._address = address
+        self.__next_tx_hash = next_tx_hash
+        self.__value = value
+        self.__script_type = script_type
+        self.__script_sig_size = script_sig_size
+        self.__address = address
 
     @property
     def next_tx_hash(self):
-        return self._next_tx_hash
+        return self.__next_tx_hash
 
     @property
     def address(self):
-        return self._address
+        return self.__address
 
     @property
     def value(self):
-        return self._value
+        return self.__value
 
     @property
     def script_sig_size(self):
-        return self._script_sig_size
+        return self.__script_sig_size
 
     @property
     def script_type(self):
-        return self._script_type
+        return self.__script_type
 
 
 class AbstractCommonTxOutput(ABC):

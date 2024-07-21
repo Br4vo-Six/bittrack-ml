@@ -15,41 +15,41 @@ class CommonTxInput:
         prev_addresses: list[str],
         age: Optional[int],
     ) -> None:
-        self._prev_tx_hash = prev_tx_hash
-        self._prev_out_idx = prev_out_idx
-        self._value = value
-        self._script_type = script_type
-        self._script_sig_size = script_sig_size
-        self._prev_addresses = prev_addresses
-        self._age = age
+        self.__prev_tx_hash = prev_tx_hash
+        self.__prev_out_idx = prev_out_idx
+        self.__value = value
+        self.__script_type = script_type
+        self.__script_sig_size = script_sig_size
+        self.__prev_addresses = prev_addresses
+        self.__age = age
 
     @property
     def prev_tx_hash(self):
-        return self._prev_tx_hash
+        return self.__prev_tx_hash
 
     @property
     def prev_out_idx(self):
-        return self._prev_out_idx
+        return self.__prev_out_idx
 
     @property
     def value(self):
-        return self._value
+        return self.__value
 
     @property
     def script_sig_size(self):
-        return self._script_sig_size
+        return self.__script_sig_size
 
     @property
     def script_type(self):
-        return self._script_type
+        return self.__script_type
 
     @property
     def prev_addresses(self):
-        return self._prev_addresses
+        return self.__prev_addresses
 
     @property
     def age(self):
-        return self._age
+        return self.__age
 
 
 class AbstractCommonTxInput(ABC):

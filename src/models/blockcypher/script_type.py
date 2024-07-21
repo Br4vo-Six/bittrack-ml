@@ -13,7 +13,7 @@ _script_type_list = [
 
 class ScriptType(AbstractCommonScriptType):
     def __init__(self, script_type: str) -> None:
-        self._script_type = script_type if script_type in _script_type_list else 'other'
+        self.__script_type = script_type if script_type in _script_type_list else 'other'
 
     @property
     def value(self):
@@ -27,20 +27,20 @@ class ScriptType(AbstractCommonScriptType):
         - `pay-to-pubkey` = P2PK
         - `other` = otherwise
         '''
-        return self._script_type
+        return self.__script_type
 
     def _get_flag(self, type: str):
-        return 1 if self._script_type == type else 0
+        return 1 if self.__script_type == type else 0
 
     def to_common(self) -> CommonScriptType:
         return CommonScriptType(
-            script_type_p2tr_flag=self._get_flag('pay-to-taproot'),
-            script_type_p2wpkh_flag=self._get_flag(
+            script_type_p2tr_flag=self.__get_flag('pay-to-taproot'),
+            script_type_p2wpkh_flag=self.__get_flag(
                 'pay-to-witness-pubkey-hash'),
-            script_type_p2wsh_flag=self._get_flag(
+            script_type_p2wsh_flag=self.__get_flag(
                 'pay-to-witness-script-hash'),
-            script_type_p2sh_flag=self._get_flag('pay-to-script-hash'),
-            script_type_p2pkh_flag=self._get_flag('pay-to-pubkey-hash'),
-            script_type_p2pk_flag=self._get_flag('pay-to-pubkey'),
-            script_type_other_flag=self._get_flag('other'),
+            script_type_p2sh_flag=self.__get_flag('pay-to-script-hash'),
+            script_type_p2pkh_flag=self.__get_flag('pay-to-pubkey-hash'),
+            script_type_p2pk_flag=self.__get_flag('pay-to-pubkey'),
+            script_type_other_flag=self.__get_flag('other'),
         )
