@@ -3,7 +3,7 @@ from typing import Optional
 
 
 def timestamp_to_datetime(timestamp: Optional[str]) -> Optional[dt]:
-    '''Parse timestamp with format YYYY-MM-DDThh:mm:ssZ to datetime'''
+    """Parse timestamp with format YYYY-MM-DDThh:mm:ssZ to datetime"""
 
     if timestamp is None:
         return None

@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from datetime import datetime as dt
 from typing import Optional
-from .tx_output import CommonTxOutput
-from .tx_input import CommonTxInput
+from tx_output import CommonTxOutput
+from tx_input import CommonTxInput
 
 
 class CommonTx:

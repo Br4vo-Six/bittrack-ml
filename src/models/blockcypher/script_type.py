@@ -1,4 +1,4 @@
-from models.common.script_type import CommonScriptType, AbstractCommonScriptType
+from src.models.common.script_type import CommonScriptType, AbstractCommonScriptType
 
 
 _script_type_list = [
@@ -17,7 +17,7 @@ class ScriptType(AbstractCommonScriptType):
 
     @property
     def value(self):
-        '''
+        """
         Transaction script type. Some common transaction types are
         - `pay-to-taproot` = P2TR
         - `pay-to-witness-pubkey-hash` = P2WPKH
@@ -26,11 +26,11 @@ class ScriptType(AbstractCommonScriptType):
         - `pay-to-pubkey-hash` = P2PKH
         - `pay-to-pubkey` = P2PK
         - `other` = otherwise
-        '''
+        """
         return self.__script_type
 
-    def _get_flag(self, type: str):
-        return 1 if self.__script_type == type else 0
+    def __get_flag(self, value: str):
+        return 1 if self.__script_type == value else 0
 
     def to_common(self) -> CommonScriptType:
         return CommonScriptType(

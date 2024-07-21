@@ -1,14 +1,14 @@
 from typing import Any, Optional
 
-from models.common.tx_output import CommonTxOutput, AbstractCommonTxOutput
-from utils.string import str_to_bytes_len
-from .script_type import ScriptType
+from src.models.common.tx_output import CommonTxOutput, AbstractCommonTxOutput
+from src.utils.string_util import str_to_bytes_len
+from script_type import ScriptType
 
 
 class TxOutput(AbstractCommonTxOutput):
-    '''
+    """
     Represents an output created by a transaction. Typically found within an array in a `Tx`.
-    '''
+    """
 
     def __init__(self, data: dict[str, Any]):
         self.__value: int = data.get('value')
@@ -21,37 +21,41 @@ class TxOutput(AbstractCommonTxOutput):
 
     @property
     def value(self):
-        '''Value in this transaction output, in satoshis.'''
+        """Value in this transaction output, in satoshis."""
         return self.__value
 
     @property
     def script(self):
-        '''Raw hexadecimal encoding of the encumbrance script for this output.'''
+        """Raw hexadecimal encoding of the encumbrance script for this output."""
         return self.__script
 
     @property
     def addresses(self):
-        '''Addresses that correspond to this output; typically this will only have a single address, and you can think of this output as having "sent" value to the address contained herein.'''
+        """Addresses that correspond to this output; typically this will only have a single address, and you can
+        think of this output as having "sent" value to the address contained herein."""
         return self.__addresses
 
     @property
     def script_type(self):
-        '''The type of encumbrance script used for this output.'''
+        """The type of encumbrance script used for this output."""
         return self.__script_type
 
     @property
     def spent_by(self):
-        '''The transaction hash that spent this output. Only returned for outputs that have been spent. The spending transaction may be unconfirmed.'''
+        """The transaction hash that spent this output. Only returned for outputs that have been spent. The spending
+        transaction may be unconfirmed."""
         return self.__spent_by
 
     @property
     def data_hex(self):
-        '''A hex-encoded representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose script_type is null-data.'''
+        """A hex-encoded representation of an OP_RETURN data output, without any other script instructions. Only
+        returned for outputs whose script_type is null-data."""
         return self.__data_hex
 
     @property
     def data_string(self):
-        '''An ASCII representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose script_type is null-data and if its data falls into the visible ASCII range.'''
+        """An ASCII representation of an OP_RETURN data output, without any other script instructions. Only returned
+        for outputs whose script_type is null-data and if its data falls into the visible ASCII range."""
         return self.__data_string
 
     def to_common(self) -> CommonTxOutput:

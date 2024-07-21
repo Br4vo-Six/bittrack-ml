@@ -1,15 +1,16 @@
 from typing import Any, Optional
 
-from models.common.tx_input import CommonTxInput, AbstractCommonTxInput
-from utils.string import str_to_bytes_len
-from .script_type import ScriptType
+from src.models.common.tx_input import CommonTxInput, AbstractCommonTxInput
+from src.utils.string_util import str_to_bytes_len
+from script_type import ScriptType
 
 
 class TxInput(AbstractCommonTxInput):
-    '''
-    Represents an input consumed within a transaction. Typically found within an array in a `Tx`. 
-    In most cases, `TXInput` are from previous UTXOs, with the most prominent exceptions being attempted double-spend and coinbase inputs.
-    '''
+    """
+    Represents an input consumed within a transaction. Typically found within an array in a `Tx`. In most cases,
+    `TXInput` are from previous UTXOs, with the most prominent exceptions being attempted double-spend and coinbase
+    inputs.
+    """
 
     def __init__(self, data: dict[str, Any]):
         self.__prev_hash: str = data.get('prev_hash')
@@ -25,52 +26,57 @@ class TxInput(AbstractCommonTxInput):
 
     @property
     def prev_hash(self):
-        '''The previous transaction hash where this input was an output. Not present for coinbase transactions.'''
+        """The previous transaction hash where this input was an output. Not present for coinbase transactions."""
         return self.__prev_hash
 
     @property
     def output_index(self):
-        '''The index of the output being spent within the previous transaction. Not present for coinbase transactions.'''
+        """The index of the output being spent within the previous transaction. Not present for coinbase
+        transactions."""
         return self.__output_index
 
     @property
     def output_value(self):
-        '''The value of the output being spent within the previous transaction. Not present for coinbase transactions.'''
+        """The value of the output being spent within the previous transaction. Not present for coinbase
+        transactions."""
         return self.__output_value
 
     @property
     def sequence(self):
-        '''The type of script that encumbers the output corresponding to this input.'''
+        """The type of script that encumbers the output corresponding to this input."""
         return self.__sequence
 
     @property
     def script(self):
-        '''Raw hexadecimal encoding of the script.'''
+        """Raw hexadecimal encoding of the script."""
         return self.__script
 
     @property
     def script_type(self):
-        '''An array of public addresses associated with the output of the previous transaction.'''
+        """An array of public addresses associated with the output of the previous transaction."""
         return self.__script_type
 
     @property
     def addresses(self):
-        '''Legacy 4-byte sequence number, not usually relevant unless dealing with locktime encumbrances.'''
+        """Legacy 4-byte sequence number, not usually relevant unless dealing with locktime encumbrances."""
         return self.__addresses
 
     @property
     def age(self):
-        '''Number of confirmations of the previous transaction for which this input was an output. Currently, only returned in unconfirmed transactions.'''
+        """Number of confirmations of the previous transaction for which this input was an output. Currently,
+        only returned in unconfirmed transactions."""
         return self.__age
 
     @property
     def wallet_name(self):
-        '''Name of Wallet or HDWallet from which to derive inputs. Only used when constructing transactions via the Creating Transactions process.'''
+        """Name of Wallet or HDWallet from which to derive inputs. Only used when constructing transactions via the
+        Creating Transactions process."""
         return self.__wallet_name
 
     @property
     def wallet_token(self):
-        '''Token associated with Wallet or HDWallet used to derive inputs. Only used when constructing transactions via the Creating Transactions process.'''
+        """Token associated with Wallet or HDWallet used to derive inputs. Only used when constructing transactions
+        via the Creating Transactions process."""
         return self.__wallet_token
 
     def to_common(self) -> CommonTxInput:

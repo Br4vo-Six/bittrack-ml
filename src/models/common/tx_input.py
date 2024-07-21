@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from .script_type import CommonScriptType
+from script_type import CommonScriptType
 
 
 class CommonTxInput:
